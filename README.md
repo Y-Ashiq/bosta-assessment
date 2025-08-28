@@ -55,3 +55,19 @@ Simple library management API with Swagger documentation with Expected Input and
 - `POST /API/borrow/return` - Return a book
 - `GET /API/borrow/borrower/:id/books` - Get borrower's books
 - `GET /API/borrow/books/overdue` - Get overdue books
+
+## Running Tests
+
+Unit tests are written using **Jest** and **Supertest**. To run the tests:
+
+```bash
+npm test
+```
+
+Or, if you want to use Jest directly:
+
+```bash
+npx jest
+```
+
+Test files are located in the `tests/` directory. Example: `tests/book.controller.test.js`
