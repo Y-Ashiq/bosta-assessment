@@ -32,6 +32,6 @@ Simple library management API with Swagger documentation.
 - `GET /API/borrow/books/overdue` - Get overdue books
 
 ### ERD Diagram 
-![Alt text](Screenshot 2025-08-29 022521.png)
+![Alt text](Screenshot2025-08-29022521.png)
 
 
