@@ -1,6 +1,6 @@
 # Library API
 
-Simple library management API with Swagger documentation.
+Simple library management API with Swagger documentation with Expected Input and Output.
 
 ## Quick Start
 
@@ -31,7 +31,27 @@ Simple library management API with Swagger documentation.
 - `GET /API/borrow/borrower/:id/books` - Get borrower's books
 - `GET /API/borrow/books/overdue` - Get overdue books
 
-### ERD Diagram 
+## Technologies Used
+
+- **Express.js**: Web framework for handling HTTP requests and routing.
+- **Sequelize**: ORM for database management, query sanitization, and prevention of SQL injection.
+- **Swagger**: API documentation and testing interface.
+- **Jest**: Unit testing framework.
+- **Supertest**: HTTP assertions for API testing.
+
+## Security
+
+- **Sequelize** is used for all database queries, which automatically sanitizes inputs and helps prevent SQL injection attacks.
+- **Validation Middleware**: Ensures all incoming data is validated before processing.
+- **Rate Limiting**: Protects endpoints from abuse and excessive requests.
+
+## Features
+
+- RESTful API for managing books, users, and borrowing processes
+- Swagger UI for interactive API documentation
+- CSV export for analytical reports
+- Unit tests for reliability
+
+### ERD Diagram
+
 ![Alt text](Screenshot2025-08-29022521.png)
-
-
