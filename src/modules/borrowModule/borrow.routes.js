@@ -87,7 +87,6 @@ borrowRouter.post(
  */
 borrowRouter.post(
   "/return",
-  validateInput(borrowValidationSchema),
   borrowcontrollers.returnBook
 );
 /**

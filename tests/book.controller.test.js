@@ -1,6 +1,12 @@
-import bookcontrollers from "../../src/modules/bookModule/book.controller.js";
+import { jest } from '@jest/globals';
+import bookcontrollers from "../src/modules/bookModule/book.controller.js";
+import bookSchema from "../src/database/models/book.model.js";
 
 describe("Book Controller", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   test("addBook should throw error if book already exists", async () => {
     const req = {
       body: {
@@ -12,8 +18,7 @@ describe("Book Controller", () => {
     };
     const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
     const next = jest.fn();
-    // Simulate SequelizeUniqueConstraintError
-    bookcontrollers.addBook.mockImplementationOnce(() => {
+    jest.spyOn(bookSchema, 'create').mockImplementationOnce(() => {
       throw { name: "SequelizeUniqueConstraintError" };
     });
     await bookcontrollers.addBook(req, res, next);
@@ -24,7 +29,8 @@ describe("Book Controller", () => {
     const req = { query: {} };
     const res = { json: jest.fn() };
     const next = jest.fn();
+    jest.spyOn(bookSchema, 'findAll').mockResolvedValueOnce([{ title: "Test Book" }]);
     await bookcontrollers.getAllBook(req, res, next);
-    expect(res.json).toHaveBeenCalled();
+    expect(res.json).toHaveBeenCalledWith([{ title: "Test Book" }]);
   });
 });

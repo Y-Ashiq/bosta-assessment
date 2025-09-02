@@ -5,6 +5,7 @@ import {
   validateSearchQuery,
   validateId,
   bookValidationSchema,
+  bookUpdateValidationSchema,
 } from "../../middleware/validation.js";
 
 const bookRouter = Router();
@@ -109,7 +110,7 @@ bookRouter.post(
 bookRouter.put(
   "/updatebooks/:id",
   validateId,
-  validateInput(bookValidationSchema),
+  validateInput(bookUpdateValidationSchema),
   bookcontrollers.updateBook
 );
 

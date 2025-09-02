@@ -4,14 +4,13 @@ import { handleError } from "../../middleware/handleError.js";
 
 const registerBorrower = handleError(async (req, res, next) => {
   const { name, email } = req.body;
-  if (!name || !email) {
-    return next(new AppError("Missing name or email", 400));
-  }
+ 
   const exists = await borrowerSchema.findOne({ where: { email } });
   if (exists) {
     return next(new AppError("Borrower already exists", 409));
   }
-  const borrower = await borrowerSchema.create({ name, email });
+  const registeredDate = new Date();
+  const borrower = await borrowerSchema.create({ name, email, registeredDate });
   res.json({ message: "Borrower registered successfully", borrower });
 });
 

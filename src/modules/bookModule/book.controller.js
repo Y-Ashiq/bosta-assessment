@@ -8,10 +8,12 @@ const addBook = handleError(async (req, res, next) => {
     const book = await bookSchema.create(req.body);
     res.status(201).json({ message: "Book added successfully", book });
   } catch (err) {
+    console.log(err);
+    
     if (err.name === "SequelizeUniqueConstraintError") {
       return next(new AppError("Book with this ISBN already exists", 409));
     }
-    return next(new AppError("Failed to add book", 500));
+    return next(new AppError(err.message, 500));
   }
 });
 

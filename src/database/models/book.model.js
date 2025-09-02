@@ -11,7 +11,7 @@ const bookSchema = sequelize.define("book", {
     allowNull: false,
   },
   ISBN: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.BIGINT,
     allowNull: false,
     unique: true,
   },

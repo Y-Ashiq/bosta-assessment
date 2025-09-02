@@ -54,43 +54,60 @@ export const bookValidationSchema = Joi.object({
       "number.min": "Available quantity cannot be negative",
       "number.max": "Available quantity cannot exceed 1000",
     }),
-  shelfLocation: Joi.string()
+  shelfLocation: Joi.string().min(1).max(100).required().messages({
+    "string.pattern.base": "Shelf location contains invalid characters",
+    "string.empty": "Shelf location cannot be empty",
+    "string.max": "Shelf location cannot exceed 100 characters",
+  }),
+});
+
+// Book update validation schema (all fields optional, but validated if present)
+export const bookUpdateValidationSchema = Joi.object({
+  title: Joi.string()
     .min(1)
-    .max(100)
-    .required()
+    .max(255)
+    .pattern(/^[a-zA-Z0-9\s\-_.,!?'"()]+$/)
     .messages({
-      "string.pattern.base": "Shelf location contains invalid characters",
-      "string.empty": "Shelf location cannot be empty",
-      "string.max": "Shelf location cannot exceed 100 characters",
+      "string.pattern.base": "Title contains invalid characters",
+      "string.max": "Title cannot exceed 255 characters",
     }),
+  author: Joi.string()
+    .min(1)
+    .max(255)
+    .pattern(/^[a-zA-Z\s\-']+$/)
+    .messages({
+      "string.pattern.base": "Author name contains invalid characters",
+      "string.max": "Author name cannot exceed 255 characters",
+    }),
+  ISBN: Joi.number().integer().messages({
+    "integer.min": "ISBN must be at least 10 numbers",
+    "integer.max": "ISBN cannot exceed 13 numbers",
+  }),
+  availableQuantity: Joi.number().integer().min(0).max(1000).messages({
+    "number.base": "Available quantity must be a number",
+    "number.integer": "Available quantity must be a whole number",
+    "number.min": "Available quantity cannot be negative",
+    "number.max": "Available quantity cannot exceed 1000",
+  }),
+  shelfLocation: Joi.string().min(1).max(100).messages({
+    "string.pattern.base": "Shelf location contains invalid characters",
+    "string.max": "Shelf location cannot exceed 100 characters",
+  }),
 });
 
 // User validation schema
 export const userValidationSchema = Joi.object({
-  name: Joi.string()
-    .min(1)
-    .max(100)
-    .required()
-    .messages({
-      "string.pattern.base": "Name contains invalid characters",
-      "string.empty": "Name cannot be empty",
-      "string.max": "Name cannot exceed 100 characters",
-    }),
+  name: Joi.string().min(1).max(100).required().messages({
+    "string.pattern.base": "Name contains invalid characters",
+    "string.empty": "Name cannot be empty",
+    "string.max": "Name cannot exceed 100 characters",
+  }),
   email: Joi.string().email().max(255).required().messages({
     "string.email": "Please provide a valid email address",
     "string.empty": "Email cannot be empty",
     "string.max": "Email cannot exceed 255 characters",
   }),
-  phone: Joi.string()
-    .pattern(/^[\+]?[0-9\s\-\(\)]+$/)
-    .min(10)
-    .max(20)
-    .required()
-    .messages({
-      "string.pattern.base": "Phone number contains invalid characters",
-      "string.min": "Phone number must be at least 10 characters",
-      "string.max": "Phone number cannot exceed 20 characters",
-    }),
+  registeredDate: Joi.date().default(() => new Date()),
 });
 
 // Borrow validation schema
