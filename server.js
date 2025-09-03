@@ -23,7 +23,6 @@ app.use("*", (req, res, next) => {
 
 // Global error handling middleware
 app.use((err, req, res, next) => {
-  console.log(err.stack);
 
   // Check if it's our custom AppError
   if (err.statusCode) {
